@@ -1,0 +1,147 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="card-header bg-secondary text-white mb-4">
+    <h3 class="mb-0">Ferramentas</h3>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">Conversão de Temperatura</div>
+            <div class="card-body">
+                <form method="POST">
+                    <input type="number" name="temp" class="form-control mb-2" placeholder="Temperatura" required>
+                    <select name="escala" class="form-select mb-2">
+                        <option value="celsius">Celsius</option>
+                        <option value="fahrenheit">Fahrenheit</option>
+                    </select>
+                    <button type="submit" name="convert_temp" class="btn btn-primary w-100">Converter</button>
+                </form>
+                {% if context['temp_result'] %}
+                <p class="mt-2">{{ context['temp_result'] }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">Cálculo de IMC</div>
+            <div class="card-body">
+                <form method="POST">
+                    <input type="number" name="peso" class="form-control mb-2" placeholder="Peso (kg)" step="0.1"
+                        required>
+                    <input type="number" name="altura" class="form-control mb-2" placeholder="Altura (m)" step="0.01"
+                        required>
+                    <button type="submit" name="calc_imc" class="btn btn-primary w-100">Calcular IMC</button>
+                </form>
+                {% if context['imc_result'] %}
+                <p class="mt-2">{{ context['imc_result'] }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">Verificar Par ou Ímpar</div>
+            <div class="card-body">
+                <form method="POST">
+                    <input type="number" name="num" class="form-control mb-2" placeholder="Número" required>
+                    <button type="submit" name="verificar_par_impar" class="btn btn-primary w-100">Verificar</button>
+                </form>
+                {% if context['par_impar_result'] %}
+                <p class="mt-2">{{ context['par_impar_result'] }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">Tabuada</div>
+            <div class="card-body">
+                <form method="POST">
+                    <input type="number" name="num" class="form-control mb-2" placeholder="Número" required>
+                    <button type="submit" name="gerar_tabuada" class="btn btn-primary w-100">Gerar Tabuada</button>
+                </form>
+                {% if context['tabuada_result'] %}
+                <ul class="mt-2">
+                    {% for linha in context['tabuada_result'] %}
+                    <li>{{ linha }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">Conversão de Moeda</div>
+            <div class="card-body">
+                <form method="POST">
+                    <input type="number" name="valor" class="form-control mb-2" placeholder="Valor" step="0.01"
+                        required>
+                    <div class="row">
+                        <div class="col-5">
+                            <select name="de" class="form-select mb-2">
+                                <option value="brl">Real (BRL)</option>
+                                <option value="usd">Dólar (USD)</option>
+                                <option value="eur">Euro (EUR)</option>
+                            </select>
+                        </div>
+                        <div class="col-2 mt-1">
+                            <p>para</p>
+                        </div>
+                        <div class="col-5">
+                            <select name="para" class="form-select mb-2">
+                                <option value="brl">Real (BRL)</option>
+                                <option value="usd">Dólar (USD)</option>
+                                <option value="eur">Euro (EUR)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" name="converter_moeda" class="btn btn-primary w-100">Converter</button>
+                </form>
+                {% if context['moeda_result'] %}
+                <p class="mt-2">{{ context['moeda_result'] }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">Etanol ou Gasolina</div>
+            <div class="card-body">
+                <form method="POST">
+                    <input type="number" name="etanol" class="form-control mb-2" placeholder="Valor Etanol" step="0.01"
+                        required>
+                    <input type="number" name="gasolina" class="form-control mb-2" placeholder="Valor Gasolina"
+                        step="0.01" required>
+                    <button type="submit" name="calc_combustivel" class="btn btn-primary w-100">Verificar</button>
+                </form>
+                {% if context['combustivel_result'] %}
+                <p class="mt-2">{{ context['combustivel_result'] }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-12 mb-4">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">Potência</div>
+            <div class="card-body">
+                <form method="POST">
+                    <input type="number" name="base" class="form-control mb-2" placeholder="Valor Base" required>
+                    <input type="number" name="expoente" class="form-control mb-2" placeholder="Valor Expoente"
+                        required>
+                    <button type="submit" name="calc_potencia" class="btn btn-primary w-100">Calcular</button>
+                </form>
+                {% if context['potencia_result'] %}
+                <p class="mt-2">{{ context['potencia_result'] }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

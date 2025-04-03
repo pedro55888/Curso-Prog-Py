@@ -1,0 +1,128 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="card-header bg-secondary text-white mb-4">
+    <h3 class="mb-0">APIS</h3>
+</div>
+<form method="POST">
+    <div class="row">
+        <div class="col-md-12 mb-4">
+            <div class="card">
+                <div class="card-header bg-secondary text-white">API ViaCep</div>
+                <div class="card-body">
+                    <label for="cep" class="form-label">CEP</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="cep" name="cep">
+                        <button type="submit" class="btn btn-primary" name="consulta_cep"
+                            formaction="{{ url_for('api') }}">Buscar CEP</button>
+                    </div>
+                    {% if context['api_cep'] %}
+                    <p class="mt-3">Resultado: </p>
+                    <ul>
+                        {% for chave, valor in context['api_cep'].items() %}
+                        <li><strong>{{ chave }}:</strong> {{ valor }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 mb-4">
+            <div class="card">
+                <div class="card-header bg-secondary text-white">API Cotação Moedas</div>
+                <div class="card-body text-center">
+                    <label for="Imagem Cachorro Aleatória" class="form-label">Converter Moeda para Real (R$)</label>
+                    <div class="input-group">
+                        <select class="form-select" id="moedas" name="moedas">
+                            <option value="">Selecione...</option>
+                            <option value="ARS-BRL">Peso Argentino/Real Brasileiro</option>
+                            <option value="AUD-BRL">Dólar Australiano/Real Brasileiro</option>
+                            <option value="AED-BRL">Dirham dos Emirados/Real Brasileiro</option>
+                            <option value="BTC-BRL">Bitcoin/Real Brasileiro</option>
+                            <option value="BOB-BRL">Boliviano/Real Brasileiro</option>
+                            <option value="CAD-BRL">Dólar Canadense/Real Brasileiro</option>
+                            <option value="CHF-BRL">Franco Suíço/Real Brasileiro</option>
+                            <option value="CLP-BRL">Peso Chileno/Real Brasileiro</option>
+                            <option value="CNY-BRL">Yuan Chinês/Real Brasileiro</option>
+                            <option value="COP-BRL">Peso Colombiano/Real Brasileiro</option>
+                            <option value="DKK-BRL">Coroa Dinamarquesa/Real Brasileiro</option>
+                            <option value="DOGE-BRL">Dogecoin/Real Brasileiro</option>
+                            <option value="EUR-BRL">Euro/Real Brasileiro</option>
+                            <option value="ETH-BRL">Ethereum/Real Brasileiro</option>
+                            <option value="GBP-BRL">Libra Esterlina/Real Brasileiro</option>
+                            <option value="HKD-BRL">Dólar de Hong Kong/Real Brasileiro</option>
+                            <option value="ILS-BRL">Novo Shekel Israelense/Real Brasileiro</option>
+                            <option value="INR-BRL">Rúpia Indiana/Real Brasileiro</option>
+                            <option value="JPY-BRL">Iene Japonês/Real Brasileiro</option>
+                            <option value="MXN-BRL">Peso Mexicano/Real Brasileiro</option>
+                            <option value="NOK-BRL">Coroa Norueguesa/Real Brasileiro</option>
+                            <option value="NZD-BRL">Dólar Neozelandês/Real Brasileiro</option>
+                            <option value="PEN-BRL">Sol do Peru/Real Brasileiro</option>
+                            <option value="PLN-BRL">Zlóti Polonês/Real Brasileiro</option>
+                            <option value="PYG-BRL">Guarani Paraguaio/Real Brasileiro</option>
+                            <option value="RUB-BRL">Rublo Russo/Real Brasileiro</option>
+                            <option value="SAR-BRL">Riyal Saudita/Real Brasileiro</option>
+                            <option value="SEK-BRL">Coroa Sueca/Real Brasileiro</option>
+                            <option value="SGD-BRL">Dólar de Cingapura/Real Brasileiro</option>
+                            <option value="THB-BRL">Baht Tailandês/Real Brasileiro</option>
+                            <option value="TRY-BRL">Nova Lira Turca/Real Brasileiro</option>
+                            <option value="TWD-BRL">Dólar Taiuanês/Real Brasileiro</option>
+                            <option value="USD-BRL">Dólar Americano/Real Brasileiro</option>
+                            <option value="VEF-BRL">Bolívar Venezuelano/Real Brasileiro</option>
+                            <option value="XRP-BRL">XRP/Real Brasileiro</option>
+                            <option value="ZAR-BRL">Rand Sul-Africano/Real Brasileiro</option>
+                        </select>
+
+                        <button type="submit" class="btn btn-primary" name="consulta_moeda" formaction="/api">Converter
+                            para R$</button>
+                    </div>
+                    <br>
+                    {% if context['api_moedas'] and context['api_moedas']['nome'] %}
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">De/Para</th>
+                                <th scope="col">Data</th>
+                                <th scope="col">Compra</th>
+                                <th scope="col">Venda</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">{{ context['api_moedas']['nome'] }}</th>
+                                <td>{{ context['api_moedas']['data'] }}</td>
+                                <td>{{ context['api_moedas']['compra'] }}</td>
+                                <td>{{ context['api_moedas']['venda'] }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    {% elif context['api_moedas'] and context['api_moedas']['mensagem'] %}
+                    <p class="lead">{{ context['api_moedas']['mensagem'] }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 mb-4">
+            <div class="card">
+                <div class="card-header bg-secondary text-white">API Imagem Cachorro Aleatória</div>
+                <div class="card-body text-center">
+                    <label for="Imagem Cachorro Aleatória" class="form-label">Imagem Cachorro Aleatória</label>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary" name="consulta_cachorro"
+                            formaction="{{ url_for('api') }}">Gerar Imagem Cachorro</button>
+                    </div>
+                    <br>
+                    {% if context['api_cachorro'] %}
+                    <img class="d-block mx-auto mb-4 img-fluid rounded" src="{{ context['api_cachorro'] }}"
+                        width="300" />
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
